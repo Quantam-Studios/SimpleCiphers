@@ -33,21 +33,21 @@ Encryption.Morse("hello world!");
 # `Decryption`
 Use `Caesar()` for shift ciphers.
 ```cs
-Encryption.Caesar("khoor zruog!", 3);
+Decryption.Caesar("khoor zruog!", 3);
 // returns: hello world!
 ```
 Use `Atbash()` to swap letters to their opposite positions.
 ```cs
-Encryption.Atbash("svool dliow!");
+Decryption.Atbash("svool dliow!");
 // returns: hello world!
 ```
 Use `A1Z26()` to substitute letters for their corresponding positions.
 ```cs
-Encryption.A1Z26("8-5-12-12-15 23-15-18-12-4!");
+Decryption.A1Z26("8-5-12-12-15 23-15-18-12-4!");
 // returns: hello world!
 ```
 Use `Morse()` to substitute letters for their morse code equivalent.
 ```cs
-Encryption.Morse(".... . .-.. .-.. --- /  .-- --- .-. .-.. -.. -.-.--");
+Deryption.Morse(".... . .-.. .-.. --- /  .-- --- .-. .-.. -.. -.-.--");
 // returns: hello world!
 ```
