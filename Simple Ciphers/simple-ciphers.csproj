@@ -13,7 +13,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Quantam-Studios/SimpleCiphers</RepositoryUrl>
     <PackageTags>ciphers caesar atbash a1z26 morse</PackageTags>
-    <PackageReleaseNotes>Added encryption for Caesar, Atbash, A1-Z26, and Morse code.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added Decryption for Caesar, Atbash, A1-Z26, and Morse code.</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <VersionPrefix>2.0.0</VersionPrefix>
   </PropertyGroup>
