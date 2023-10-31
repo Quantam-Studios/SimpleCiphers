@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Simple_Ciphers</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Simple Ciphers</Title>
+    <Authors>Zach Goodson</Authors>
+    <Company>Zach Goodson</Company>
+    <Description>A package for plain text encryption and decryption for simple, but fun ciphers.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Quantam-Studios/SimpleCiphers</RepositoryUrl>
+    <PackageTags>ciphers caesar atbash a1z26 morse</PackageTags>
+    <PackageReleaseNotes>Added encryption for Caesar, Atbash, A1-Z26, and Morse code.</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
