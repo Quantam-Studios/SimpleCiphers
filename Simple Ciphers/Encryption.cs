@@ -6,17 +6,14 @@ namespace SimpleCiphers
     {
         private static readonly string alpha = "abcdefghijklmnopqrstuvwxyz";
         private static readonly string ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        private static readonly string num = "0123456789";
-        private static readonly (string, string)[] morseAlpha = { ("a", ".-"), ("b", "-..."), ("c", "-.-."), ("d", "-.."), ("e", "."), ("f", "..-."), ("g", "--."), ("h", "...."), ("i", ".."), ("j", ".---"), ("k", "-.-"), ("l", ".-.."), ("m", "--"), ("n", "-."), ("o", "---"), ("p", ".--."), ("q", "--.-"), ("r", ".-."), ("s", "..."), ("t", "-"), ("u", "..-"), ("v", "...-"), ("w", ".--"), ("x", "-..-"), ("y", "-.--"), ("z", "--..") };
-        private static readonly (int, string)[] morseNum = { (0, "-----"), (1, ".----"), (2, "..---"), (3, "...--"), (4, "....-"), (5, "....."), (6, "-...."), (7, "--..."), (8, "---.."), (9, "----.") };
-        private static readonly (char, string)[] morseSym = { ('.', ".-.-.-"), (',', "--..--"), ('\'', ".----."), ('?', "..--.."), ('!', "-.-.--"), ('/', "-..-."), ('(', "-.--."), (')', "-.--.-"), ('&', ".-..."), (':', "---..."), (';', "-.-.-."), ('=', "-...-"), ('+', ".-.-."), ('-', "-....-"), ('_', "..--.-"), ('"', ".-..-."), ('$', "...-..-"), ('@', ".--.-.") };
-        private static readonly string morseAcceptedSym = ".,'?!/()&:;=+-_\"$@";
+        private static readonly Dictionary<char, string> morseAlphaSym = new() { { 'a', ".-" }, { 'b', "-..." }, { 'c', "-.-." }, { 'd', "-.." }, { 'e', "." }, { 'f', "..-." }, { 'g', "--." }, { 'h', "...." }, { 'i', ".." }, { 'j', ".---" }, { 'k', "-.-" }, { 'l', ".-.." }, { 'm', "--" }, { 'n', "-." }, { 'o', "---" }, { 'p', ".--." }, { 'q', "--.-" }, { 'r', ".-." }, { 's', "..." }, { 't', "-" }, { 'u', "..-" }, { 'v', "...-" }, { 'w', ".--" }, { 'x', "-..-" }, { 'y', "-.--" }, { 'z', "--.." }, { '.', ".-.-.-" }, { ',', "--..--" }, { '\'', ".----." }, { '?', "..--.." }, { '!', "-.-.--" }, { '/', "-..-." }, { '(', "-.--." }, { ')', "-.--.-" }, { '&', ".-..." }, { ':', "---..." }, { ';', "-.-.-." }, { '=', "-...-" }, { '+', ".-.-." }, { '-', "-....-" }, { '_', "..--.-" }, { '"', ".-..-." }, { '$', "...-..-" }, { '@', ".--.-." } };
+        private static readonly Dictionary<int, string> morseNum = new() { { 0, "-----" }, { 1, ".----" }, { 2, "..---" }, { 3, "...--" }, { 4, "....-" }, { 5, "....." }, { 6, "-...." }, { 7, "--..." }, { 8, "---.." }, { 9, "----." } };
 
         /// <summary>
         /// Encrypts plain text via swapping letters to their opposite positions.
         /// </summary>
         /// <param name="text"></param>
-        /// <returns>string</returns>
+        /// <returns>string in the Atbash cipher.</returns>
         public static string Atbash(string text)
         {
             StringBuilder finalText = new();
@@ -47,7 +44,7 @@ namespace SimpleCiphers
         /// </summary>
         /// <param name="text"></param>
         /// <param name="shift"></param>
-        /// <returns>string</returns>
+        /// <returns>string in a Caesar cipher.</returns>
         public static string Caesar(string text, uint shift)
         {
             StringBuilder finalText = new();
@@ -90,7 +87,7 @@ namespace SimpleCiphers
         /// Encrypts plain text via a numerical value correpsonding to the position in the alphabet.
         /// </summary>
         /// <param name="text"></param>
-        /// <returns>string</returns>
+        /// <returns>string in A1Z26.</returns>
         public static string A1Z26(string text)
         {
             StringBuilder finalText = new();
@@ -125,7 +122,7 @@ namespace SimpleCiphers
         /// Converts plain text to Morse code.
         /// </summary>
         /// <param name="text"></param>
-        /// <returns>string</returns>
+        /// <returns>string in Morse code.</returns>
         public static string Morse(string text)
         {
             string lowerText = text.ToLower();
@@ -133,35 +130,13 @@ namespace SimpleCiphers
 
             foreach (char character in lowerText)
             {
-                if (alpha.IndexOf(character) > -1) // lower alphabet (lower or upper)
+                if (morseAlphaSym.TryGetValue(character, out string value)) // alphabet (lower or upper) or symbol
                 {
-                    for (int i = 0; i < morseAlpha.Length; i++)
-                    {
-                        if (character.ToString() == morseAlpha[i].Item1)
-                        {
-                            finalText.Append(" " + morseAlpha[i].Item2);
-                        }
-                    }
+                    finalText.Append(' ' + value);
                 }
-                else if (num.IndexOf(character) > -1) // numbers
+                else if (int.TryParse(character.ToString(), out int n) && morseNum.TryGetValue(n, out string num)) // numbers
                 {
-                    for (int i = 0; i < morseNum.Length; i++)
-                    {
-                        if (character == morseNum[i].Item1)
-                        {
-                            finalText.Append(" " + morseNum[i].Item2);
-                        }
-                    }
-                }
-                else if (morseAcceptedSym.IndexOf(character) > -1) // symbols
-                {
-                    for (int i = 0; i < morseSym.Length; i++)
-                    {
-                        if (character == morseSym[i].Item1)
-                        {
-                            finalText.Append(" " + morseSym[i].Item2);
-                        }
-                    }
+                    finalText.Append(' ' + num);
                 }
                 else if (character == ' ') // spaces
                 {
@@ -169,7 +144,7 @@ namespace SimpleCiphers
                 }
                 else // other
                 {
-                    finalText.Append(" " + character);
+                    finalText.Append(' ' + character);
                 }
             }
 
