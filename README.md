@@ -1,5 +1,14 @@
 # Simple Ciphers
 A C# package for plain text encryption and decryption for simple, but fun ciphers.
+# Add to Project
+Via `dotnet`:
+```cs
+dotnet add package simple-ciphers --version 1.0.0
+```
+Via `PackageReference` in your `.csproj` file:
+```cs
+<PackageReference Include="simple-ciphers" Version="1.0.0" />
+```
 # Encryption
 Use `Caesar()` for shift ciphers.
 ```cs
