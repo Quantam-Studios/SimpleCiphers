@@ -1,4 +1,4 @@
-# Siimple Ciphers
+# Simple Ciphers
 A C# package for plain text encryption and decryption for simple, but fun ciphers.
 # Encryption
 Use `Caesar()` for shift ciphers.
