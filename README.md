@@ -3,11 +3,11 @@ A C# package for plain text encryption and decryption for simple, but fun cipher
 # Add to Project
 Via `dotnet`:
 ```cs
-dotnet add package simple-ciphers --version 2.0.1
+dotnet add package simple-ciphers --version 2.0.2
 ```
 Via `PackageReference` in your `.csproj` file:
 ```cs
-<PackageReference Include="simple-ciphers" Version="2.0.1" />
+<PackageReference Include="simple-ciphers" Version="2.0.2" />
 ```
 # `Encryption`
 Use `Caesar()` for shift ciphers.
@@ -28,7 +28,7 @@ Encryption.A1Z26("hello world!");
 Use `Morse()` to substitute letters for their morse code equivalent.
 ```cs
 Encryption.Morse("hello world!");
-// returns: .... . .-.. .-.. --- /  .-- --- .-. .-.. -.. -.-.--
+// returns: .... . .-.. .-.. --- / .-- --- .-. .-.. -.. -.-.--
 ```
 # `Decryption`
 Use `Caesar()` for shift ciphers.
@@ -48,6 +48,6 @@ Decryption.A1Z26("8-5-12-12-15 23-15-18-12-4!");
 ```
 Use `Morse()` to substitute letters for their morse code equivalent.
 ```cs
-Deryption.Morse(".... . .-.. .-.. --- /  .-- --- .-. .-.. -.. -.-.--");
+Deryption.Morse(".... . .-.. .-.. --- / .-- --- .-. .-.. -.. -.-.--");
 // returns: hello world!
 ```

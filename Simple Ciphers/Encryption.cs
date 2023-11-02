@@ -140,7 +140,7 @@ namespace SimpleCiphers
                 }
                 else if (character == ' ') // spaces
                 {
-                    finalText.Append(" / ");
+                    finalText.Append(" /");
                 }
                 else // other
                 {
