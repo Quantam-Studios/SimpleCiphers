@@ -13,9 +13,10 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Quantam-Studios/SimpleCiphers</RepositoryUrl>
     <PackageTags>ciphers caesar atbash a1z26 morse</PackageTags>
-    <PackageReleaseNotes>Removed extra space after a "/".</PackageReleaseNotes>
+    <PackageReleaseNotes>Removed extra space after a "/" in Encrypt.Morse().</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <VersionPrefix>2.0.2</VersionPrefix>
+    <VersionPrefix>2.0.3</VersionPrefix>
+    <PackAsTool>False</PackAsTool>
   </PropertyGroup>
 
   <ItemGroup>
