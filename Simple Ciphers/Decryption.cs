@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using System.Reflection;
 using System.Text;
 
@@ -35,6 +36,50 @@ namespace SimpleCiphers
                 else // other
                 {
                     finalText.Append(letter);
+                }
+            }
+
+            return finalText.ToString();
+        }
+
+        /// <summary>
+        /// Decrypts text ciphered with a Vigenere cipher.
+        /// </summary>
+        /// <param name="cipherText"></param>
+        /// <param name="key"></param>
+        /// <returns>a string in plain text.</returns>
+        public static string Vigenere(string cipherText, string key)
+        {
+            cipherText = cipherText.ToLower();
+
+            StringBuilder finalText = new();
+            int keyShift = 0;
+
+            foreach(char c in cipherText)
+            {
+                if (!alpha.Contains(c)) // symbols or spaces
+                {
+                    finalText.Append(c);
+                }
+                else // letters
+                {
+                    int letterShift = alpha.IndexOf(c) - alpha.IndexOf(key[keyShift]);
+
+                    if (letterShift >= 0)
+                    {
+                        finalText.Append(alpha[letterShift]);
+                    }
+                    else if(letterShift < 0)
+                    {
+                        letterShift += 26;
+                        finalText.Append(alpha[letterShift]);
+                    }
+
+                    keyShift++;
+                    if (letterShift == key.Length)
+                    {
+                        keyShift = 0;
+                    }
                 }
             }
 

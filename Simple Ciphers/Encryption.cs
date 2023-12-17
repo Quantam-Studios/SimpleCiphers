@@ -84,6 +84,50 @@ namespace SimpleCiphers
         }
 
         /// <summary>
+        /// Encrypts plain text via a key.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="key"></param>
+        /// <returns>string in a Vigenere cipher.</returns>
+        public static string Vigenere(string text, string key)
+        {
+            text = text.ToLower();
+
+            StringBuilder finalText = new();
+            int keyShift = 0;
+
+            foreach (char c in text)
+            {
+                if (!alpha.Contains(c)) // symbols or spaces
+                {
+                    finalText.Append(c);
+                }
+                else // letters
+                {
+                    int letterShift = alpha.IndexOf(key[keyShift]) + alpha.IndexOf(c);
+
+                    if (letterShift < 26)
+                    {
+                        finalText.Append(alpha[letterShift]);
+                    }
+                    else if (letterShift >= 26)
+                    {
+                        letterShift -= 26;
+                        finalText.Append(alpha[letterShift]);
+                    }
+
+                    keyShift++;
+                    if (keyShift == key.Length)
+                    {
+                        keyShift = 0;
+                    }
+                }
+            }
+
+            return finalText.ToString();
+        }
+
+        /// <summary>
         /// Encrypts plain text via a numerical value correpsonding to the position in the alphabet.
         /// </summary>
         /// <param name="text"></param>
