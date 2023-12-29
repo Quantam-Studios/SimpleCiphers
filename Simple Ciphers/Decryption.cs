@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Diagnostics.Metrics;
+using System.Diagnostics.SymbolStore;
 using System.Reflection;
 using System.Text;
 
@@ -7,7 +9,7 @@ namespace SimpleCiphers
 {
     public static class Decryption
     {
-        private static readonly string alpha = "abcdefghijklmnopqrstuvwxyz";
+        private static string alpha = "abcdefghijklmnopqrstuvwxyz";
         private static readonly string ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private static readonly Dictionary<string, char> morseAlphaSym = new() { { ".-", 'a' }, { "-...", 'b' }, { "-.-.", 'c' }, { "-..", 'd' }, { ".", 'e' }, { "..-.", 'f' }, { "--.", 'g' }, { "....", 'h' }, { "..", 'i' }, { ".---", 'j' }, { "-.-" , 'k' }, { ".-.." , 'l' }, { "--", 'm' }, { "-.", 'n' }, { "---", 'o' }, { ".--.", 'p' }, { "--.-", 'q' }, { ".-.", 'r' }, { "...", 's' }, { "-", 't' }, { "..-", 'u' }, { "...-", 'v' }, { ".--", 'w' }, { "-..-", 'x' }, { "-.--", 'y' }, { "--..", 'z' }, { ".-.-.-", '.' }, { "--..--", ',' }, { ".----.", '\'' }, { "..--..", '?' }, { "-.-.--", '!' }, { "-..-.", '/' }, { "-.--.", '(' }, { "-.--.-", ')' }, { ".-...", '&' }, { "---...", ':' }, { "-.-.-.", ';' }, { "-...-", '=' }, { ".-.-.", '+' }, { "-....-", '-' }, { "..--.-", '_' }, { ".-..-.", '"' }, { "...-..-", '$' }, { ".--.-.", '@' } };
         private static readonly Dictionary<string, int> morseNum = new() { { "-----", 0 }, { ".----", 1 }, { "..---", 2 }, { "...--", 3 }, { "....-", 4 }, { ".....", 5 }, { "-....", 6 }, { "--...", 7 }, { "---..", 8 }, { "----.", 9 } };
@@ -76,7 +78,7 @@ namespace SimpleCiphers
                     }
 
                     keyShift++;
-                    if (letterShift == key.Length)
+                    if (keyShift == key.Length)
                     {
                         keyShift = 0;
                     }
@@ -137,26 +139,52 @@ namespace SimpleCiphers
         /// <returns>a string in plain text.</returns>
         public static string A1Z26(string cipherText)
         {
-            StringBuilder finalText = new();
-            string[] words = cipherText.Split(separator: " ");
-            foreach(string word in words)
+            StringBuilder finalText = new StringBuilder();
+            StringBuilder currentNumber = new StringBuilder();
+
+            foreach (char character in cipherText)
             {
-                foreach (string letter in word.Split("-"))
+                if (char.IsDigit(character))
                 {
-                    if (int.TryParse(letter, out int n)) // alphabet (lower or upper)
-                    {
-                        if (int.Parse(letter) <= 26)
-                        {
-                            finalText.Append(alpha[n - 1]);
-                        }
-                    }
-                    else // other
-                    {
-                        finalText.Append(letter);
-                    }
+                    // Collect digits to form a number
+                    currentNumber.Append(character);
                 }
-                finalText.Append(' ');
+                else
+                {
+                    if (currentNumber.Length > 0)
+                    {
+                        if (int.TryParse(currentNumber.ToString(), out int number) && number >= 1 && number <= 26)
+                        {
+                            char letter = (char)('a' + number - 1);
+                            finalText.Append(letter);
+                        }
+                        else
+                        {
+                            finalText.Append(currentNumber.ToString());
+                        }
+
+                        currentNumber.Clear();
+                    }
+
+                    finalText.Append(character);
+                }
             }
+
+            // Process the last collected number (if any)
+            if (currentNumber.Length > 0)
+            {
+                if (int.TryParse(currentNumber.ToString(), out int number) && number >= 1 && number <= 26)
+                {
+                    char letter = (char)('a' + number - 1);
+                    finalText.Append(letter);
+                }
+                else
+                {
+                    finalText.Append(currentNumber.ToString());
+                }
+            }
+
+            finalText.Replace("-", "");
 
             return finalText.ToString();
         }
