@@ -3,11 +3,11 @@ A C# package for plain text encryption and decryption for simple, but fun cipher
 # Add to Project
 Via `dotnet`:
 ```cs
-dotnet add package simple-ciphers --version 2.0.5
+dotnet add package simple-ciphers --version 2.0.6
 ```
 Via `PackageReference` in your `.csproj` file:
 ```cs
-<PackageReference Include="simple-ciphers" Version="2.0.5" />
+<PackageReference Include="simple-ciphers" Version="2.0.6" />
 ```
 # `Encryption`
 Use `A1Z26()` to substitute letters for their corresponding positions.

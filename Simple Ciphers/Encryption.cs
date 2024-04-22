@@ -48,31 +48,17 @@ namespace SimpleCiphers
         public static string Caesar(string text, uint shift)
         {
             StringBuilder finalText = new();
-            int shiftInt = (int)shift;
+            int shiftInt = (int)shift % 26;
 
             foreach (char letter in text)
             {
                 if (alpha.IndexOf(letter) > -1) // lower alphabet
                 {
-                    if (alpha.IndexOf(letter) + shiftInt <= 25)
-                    {
-                        finalText.Append(alpha[alpha.IndexOf(letter) + shiftInt]);
-                    }
-                    else
-                    {
-                        finalText.Append(alpha[alpha.IndexOf(letter) + shiftInt - 26]);
-                    }
+                    finalText.Append(alpha[alpha.IndexOf(letter) + shiftInt]);
                 }
                 else if (ALPHA.IndexOf(letter) > -1) // upper alphabet
                 {
-                    if (ALPHA.IndexOf(letter) + shiftInt <= 25)
-                    {
-                        finalText.Append(ALPHA[ALPHA.IndexOf(letter) + shiftInt]);
-                    }
-                    else
-                    {
-                        finalText.Append(ALPHA[ALPHA.IndexOf(letter) + shiftInt - 26]);
-                    }
+                    finalText.Append(ALPHA[ALPHA.IndexOf(letter) + shiftInt]);
                 }
                 else // other
                 {
@@ -92,6 +78,7 @@ namespace SimpleCiphers
         public static string Vigenere(string text, string key)
         {
             text = text.ToLower();
+            key = key.ToLower();
 
             StringBuilder finalText = new();
             int keyShift = 0;
