@@ -15,7 +15,7 @@
     <PackageTags>ciphers caesar atbash a1z26 morse vigenere</PackageTags>
     <PackageReleaseNotes>Fix Encryption of Vigenere with capital letters in keys and Caesar when shifts are greater than 26.</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <VersionPrefix>2.0.6</VersionPrefix>
+    <VersionPrefix>2.1.0</VersionPrefix>
     <PackAsTool>False</PackAsTool>
   </PropertyGroup>
 

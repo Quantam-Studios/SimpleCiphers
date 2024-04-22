@@ -54,11 +54,25 @@ namespace SimpleCiphers
             {
                 if (alpha.IndexOf(letter) > -1) // lower alphabet
                 {
-                    finalText.Append(alpha[alpha.IndexOf(letter) + shiftInt]);
+                    if (alpha.IndexOf(letter) + shiftInt <= 25)
+                    {
+                        finalText.Append(alpha[alpha.IndexOf(letter) + shiftInt]);
+                    }
+                    else
+                    {
+                        finalText.Append(alpha[alpha.IndexOf(letter) + shiftInt - 26]);
+                    }
                 }
                 else if (ALPHA.IndexOf(letter) > -1) // upper alphabet
                 {
-                    finalText.Append(ALPHA[ALPHA.IndexOf(letter) + shiftInt]);
+                    if (ALPHA.IndexOf(letter) + shiftInt <= 25)
+                    {
+                        finalText.Append(ALPHA[ALPHA.IndexOf(letter) + shiftInt]);
+                    }
+                    else
+                    {
+                        finalText.Append(ALPHA[ALPHA.IndexOf(letter) + shiftInt - 26]);
+                    }
                 }
                 else // other
                 {
