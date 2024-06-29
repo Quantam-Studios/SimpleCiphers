@@ -6,8 +6,22 @@ namespace SimpleCiphers
     {
         private static readonly string alpha = "abcdefghijklmnopqrstuvwxyz";
         private static readonly string ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        private static readonly Dictionary<char, string> morseAlphaSym = new() { { 'a', ".-" }, { 'b', "-..." }, { 'c', "-.-." }, { 'd', "-.." }, { 'e', "." }, { 'f', "..-." }, { 'g', "--." }, { 'h', "...." }, { 'i', ".." }, { 'j', ".---" }, { 'k', "-.-" }, { 'l', ".-.." }, { 'm', "--" }, { 'n', "-." }, { 'o', "---" }, { 'p', ".--." }, { 'q', "--.-" }, { 'r', ".-." }, { 's', "..." }, { 't', "-" }, { 'u', "..-" }, { 'v', "...-" }, { 'w', ".--" }, { 'x', "-..-" }, { 'y', "-.--" }, { 'z', "--.." }, { '.', ".-.-.-" }, { ',', "--..--" }, { '\'', ".----." }, { '?', "..--.." }, { '!', "-.-.--" }, { '/', "-..-." }, { '(', "-.--." }, { ')', "-.--.-" }, { '&', ".-..." }, { ':', "---..." }, { ';', "-.-.-." }, { '=', "-...-" }, { '+', ".-.-." }, { '-', "-....-" }, { '_', "..--.-" }, { '"', ".-..-." }, { '$', "...-..-" }, { '@', ".--.-." } };
-        private static readonly Dictionary<int, string> morseNum = new() { { 0, "-----" }, { 1, ".----" }, { 2, "..---" }, { 3, "...--" }, { 4, "....-" }, { 5, "....." }, { 6, "-...." }, { 7, "--..." }, { 8, "---.." }, { 9, "----." } };
+        private static readonly Dictionary<char, string> morseAlphaSym = new()
+        {
+            { 'a', ".-" }, { 'b', "-..." }, { 'c', "-.-." }, { 'd', "-.." }, { 'e', "." }, { 'f', "..-." }, { 'g', "--." },
+            { 'h', "...." }, { 'i', ".." }, { 'j', ".---" }, { 'k', "-.-" }, { 'l', ".-.." }, { 'm', "--" }, { 'n', "-." },
+            { 'o', "---" }, { 'p', ".--." }, { 'q', "--.-" }, { 'r', ".-." }, { 's', "..." }, { 't', "-" }, { 'u', "..-" },
+            { 'v', "...-" }, { 'w', ".--" }, { 'x', "-..-" }, { 'y', "-.--" }, { 'z', "--.." }, { '.', ".-.-.-" }, { ',', "--..--" },
+            { '\'', ".----." }, { '?', "..--.." }, { '!', "-.-.--" }, { '/', "-..-." }, { '(', "-.--." }, { ')', "-.--.-" },
+            { '&', ".-..." }, { ':', "---..." }, { ';', "-.-.-." }, { '=', "-...-" }, { '+', ".-.-." }, { '-', "-....-" },
+            { '_', "..--.-" }, { '"', ".-..-." }, { '$', "...-..-" }, { '@', ".--.-." }
+        };
+
+        private static readonly Dictionary<int, string> morseNum = new()
+        {
+            { 0, "-----" }, { 1, ".----" }, { 2, "..---" }, { 3, "...--" }, { 4, "....-" }, { 5, "....." },
+            { 6, "-...." }, { 7, "--..." }, { 8, "---.." }, { 9, "----." }
+        };
 
         /// <summary>
         /// Encrypts plain text via swapping letters to their opposite positions.
@@ -16,21 +30,29 @@ namespace SimpleCiphers
         /// <returns>string in the Atbash cipher.</returns>
         public static string Atbash(string text)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
             StringBuilder finalText = new();
 
             foreach (char letter in text)
             {
-                if (alpha.IndexOf(letter) > -1) // lower alphabet
+                int indexLower = alpha.IndexOf(letter);
+                int indexUpper = ALPHA.IndexOf(letter);
+
+                if (indexLower > -1)
                 {
-                    int finalVal = 25 - alpha.IndexOf(letter);
+                    int finalVal = 25 - indexLower;
                     finalText.Append(alpha[finalVal]);
                 }
-                else if (ALPHA.IndexOf(letter) > -1) // upper alphabet
+                else if (indexUpper > -1)
                 {
-                    int finalVal = 25 - ALPHA.IndexOf(letter);
+                    int finalVal = 25 - indexUpper;
                     finalText.Append(ALPHA[finalVal]);
                 }
-                else // other
+                else
                 {
                     finalText.Append(letter);
                 }
@@ -47,34 +69,28 @@ namespace SimpleCiphers
         /// <returns>string in a Caesar cipher.</returns>
         public static string Caesar(string text, uint shift)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
             StringBuilder finalText = new();
             int shiftInt = (int)shift % 26;
 
             foreach (char letter in text)
             {
-                if (alpha.IndexOf(letter) > -1) // lower alphabet
+                int indexLower = alpha.IndexOf(letter);
+                int indexUpper = ALPHA.IndexOf(letter);
+
+                if (indexLower > -1)
                 {
-                    if (alpha.IndexOf(letter) + shiftInt <= 25)
-                    {
-                        finalText.Append(alpha[alpha.IndexOf(letter) + shiftInt]);
-                    }
-                    else
-                    {
-                        finalText.Append(alpha[alpha.IndexOf(letter) + shiftInt - 26]);
-                    }
+                    finalText.Append(alpha[(indexLower + shiftInt) % 26]);
                 }
-                else if (ALPHA.IndexOf(letter) > -1) // upper alphabet
+                else if (indexUpper > -1)
                 {
-                    if (ALPHA.IndexOf(letter) + shiftInt <= 25)
-                    {
-                        finalText.Append(ALPHA[ALPHA.IndexOf(letter) + shiftInt]);
-                    }
-                    else
-                    {
-                        finalText.Append(ALPHA[ALPHA.IndexOf(letter) + shiftInt - 26]);
-                    }
+                    finalText.Append(ALPHA[(indexUpper + shiftInt) % 26]);
                 }
-                else // other
+                else
                 {
                     finalText.Append(letter);
                 }
@@ -91,6 +107,11 @@ namespace SimpleCiphers
         /// <returns>string in a Vigenere cipher.</returns>
         public static string Vigenere(string text, string key)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
             text = text.ToLower();
             key = key.ToLower();
 
@@ -99,29 +120,21 @@ namespace SimpleCiphers
 
             foreach (char c in text)
             {
-                if (!alpha.Contains(c)) // symbols or spaces
+                if (!alpha.Contains(c))
                 {
                     finalText.Append(c);
                 }
-                else // letters
+                else
                 {
                     int letterShift = alpha.IndexOf(key[keyShift]) + alpha.IndexOf(c);
 
-                    if (letterShift < 26)
-                    {
-                        finalText.Append(alpha[letterShift]);
-                    }
-                    else if (letterShift >= 26)
+                    if (letterShift >= 26)
                     {
                         letterShift -= 26;
-                        finalText.Append(alpha[letterShift]);
                     }
 
-                    keyShift++;
-                    if (keyShift == key.Length)
-                    {
-                        keyShift = 0;
-                    }
+                    finalText.Append(alpha[letterShift]);
+                    keyShift = (keyShift + 1) % key.Length;
                 }
             }
 
@@ -135,27 +148,31 @@ namespace SimpleCiphers
         /// <returns>string in A1Z26.</returns>
         public static string A1Z26(string text)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
             StringBuilder finalText = new();
 
-            int place = 0;
-            foreach (char letter in text)
+            for (int i = 0; i < text.Length; i++)
             {
-                if (alpha.IndexOf(letter) > -1 || ALPHA.IndexOf(letter) > -1) // lower or upper alphabet
+                char letter = text[i];
+                int indexLower = alpha.IndexOf(letter);
+                int indexUpper = ALPHA.IndexOf(letter);
+
+                if (indexLower > -1 || indexUpper > -1)
                 {
-                    int letterVal = (alpha.IndexOf(letter) > -1) ? alpha.IndexOf(letter) + 1 : ALPHA.IndexOf(letter) + 1;
+                    int letterVal = (indexLower > -1) ? indexLower + 1 : indexUpper + 1;
                     finalText.Append(letterVal);
-                    if (text.Length > place + 1)
+
+                    if (i < text.Length - 1 && (alpha.Contains(text[i + 1]) || ALPHA.Contains(text[i + 1])))
                     {
-                        if (alpha.IndexOf(text[place + 1]) > -1 || ALPHA.IndexOf(text[place + 1]) > -1)
-                        {
-                            finalText.Append('-');
-                        }
+                        finalText.Append('-');
                     }
-                    place += 1;
                 }
-                else // other
+                else
                 {
-                    place += 1;
                     finalText.Append(letter);
                 }
             }
@@ -170,30 +187,34 @@ namespace SimpleCiphers
         /// <returns>string in Morse code.</returns>
         public static string Morse(string text)
         {
-            string lowerText = text.ToLower();
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
             StringBuilder finalText = new();
 
-            foreach (char character in lowerText)
+            foreach (char character in text.ToLower())
             {
-                if (morseAlphaSym.TryGetValue(character, out string value)) // alphabet (lower or upper) or symbol
+                if (morseAlphaSym.TryGetValue(character, out string value))
                 {
-                    finalText.Append(' ' + value);
+                    finalText.Append(value + " ");
                 }
-                else if (int.TryParse(character.ToString(), out int n) && morseNum.TryGetValue(n, out string num)) // numbers
+                else if (int.TryParse(character.ToString(), out int n) && morseNum.TryGetValue(n, out string num))
                 {
-                    finalText.Append(' ' + num);
+                    finalText.Append(num + " ");
                 }
-                else if (character == ' ') // spaces
+                else if (character == ' ')
                 {
-                    finalText.Append(" /");
+                    finalText.Append("/ ");
                 }
-                else // other
+                else
                 {
-                    finalText.Append(' ' + character);
+                    finalText.Append(character + " ");
                 }
             }
 
-            return finalText.ToString();
+            return finalText.ToString().Trim();
         }
     }
 }
