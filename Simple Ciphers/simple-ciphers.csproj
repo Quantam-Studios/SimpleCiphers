@@ -13,9 +13,9 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Quantam-Studios/SimpleCiphers</RepositoryUrl>
     <PackageTags>ciphers caesar atbash a1z26 morse vigenere</PackageTags>
-    <PackageReleaseNotes>Fix Encryption of Vigenere with capital letters in keys and Caesar when shifts are greater than 26.</PackageReleaseNotes>
+    <PackageReleaseNotes>Make all methods faster and more robust for null or empty edge cases.</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <VersionPrefix>2.1.0</VersionPrefix>
+    <VersionPrefix>2.2.0</VersionPrefix>
     <PackAsTool>False</PackAsTool>
   </PropertyGroup>
 

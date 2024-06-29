@@ -196,13 +196,19 @@ namespace SimpleCiphers
 
             foreach (char character in text.ToLower())
             {
-                if (morseAlphaSym.TryGetValue(character, out string value))
+                if (morseAlphaSym.TryGetValue(character, out string? value))
                 {
-                    finalText.Append(value + " ");
+                    if (value != null)
+                    {
+                        finalText.Append(value + " ");
+                    }
                 }
-                else if (int.TryParse(character.ToString(), out int n) && morseNum.TryGetValue(n, out string num))
+                else if (char.IsDigit(character) && morseNum.TryGetValue(character - '0', out string? num))
                 {
-                    finalText.Append(num + " ");
+                    if (num != null)
+                    {
+                        finalText.Append(num + " ");
+                    }
                 }
                 else if (character == ' ')
                 {
