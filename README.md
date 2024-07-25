@@ -58,16 +58,16 @@ Decryption.Caesar("khoor zruog!", 3);
 ```
 Use `Morse()` to substitute morse code for their letter and/or symbol equivalent.
 ```cs
-Deryption.Morse(".... . .-.. .-.. --- / .-- --- .-. .-.. -.. -.-.--");
+Decryption.Morse(".... . .-.. .-.. --- / .-- --- .-. .-.. -.. -.-.--");
 // returns: hello world!
 ```
 Use `Vigenere()` to decipher with a key.
 ```cs
-Deryption.Vigenere("rijvs uyvjn!", "key");
+Decryption.Vigenere("rijvs uyvjn!", "key");
 // returns: hello world!
 ```
 Use `Binary()` to decipher with Binary.
 ```cs
-Deryption.Binary("01101000 01100101 01101100 01101100 01101111 00100000 01110111 01101111 01110010 01101100 01100100 00100001");
+Decryption.Binary("01101000 01100101 01101100 01101100 01101111 00100000 01110111 01101111 01110010 01101100 01100100 00100001");
 // returns: hello world!
 ```
