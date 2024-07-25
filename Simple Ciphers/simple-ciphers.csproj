@@ -12,10 +12,10 @@
     <Description>A package for plain text encryption and decryption for simple, but fun ciphers.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Quantam-Studios/SimpleCiphers</RepositoryUrl>
-    <PackageTags>ciphers caesar atbash a1z26 morse vigenere</PackageTags>
-    <PackageReleaseNotes>Make all methods faster and more robust for null or empty edge cases.</PackageReleaseNotes>
+    <PackageTags>ciphers caesar atbash a1z26 morse vigenere binary</PackageTags>
+    <PackageReleaseNotes>Add Binary encryption and decryption.</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <VersionPrefix>2.2.0</VersionPrefix>
+    <VersionPrefix>2.3.0</VersionPrefix>
     <PackAsTool>False</PackAsTool>
   </PropertyGroup>
 

@@ -239,5 +239,31 @@ namespace SimpleCiphers
 
             return finalText.ToString().Trim();
         }
+
+        /// <summary>
+        /// Converts binary to plain text.
+        /// </summary>
+        /// <param name="cipherText"></param>
+        /// <returns>string in plain text.</returns>
+        public static string Binary(string cipherText)
+        {
+            if (string.IsNullOrEmpty(cipherText))
+            {
+                return string.Empty;
+            }
+
+            StringBuilder finalText = new();
+            string[] binaryWords = cipherText.Split(' ');
+
+            foreach (string binary in binaryWords)
+            {
+                if (binary.Length == 8)
+                {
+                    finalText.Append((char)Convert.ToInt32(binary, 2));
+                }
+            }
+
+            return finalText.ToString();
+        }
     }
 }

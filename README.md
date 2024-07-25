@@ -3,11 +3,11 @@ A C# package for plain text encryption and decryption for simple, but fun cipher
 # Add to Project
 Via `dotnet`:
 ```cs
-dotnet add package simple-ciphers --version 2.1.0
+dotnet add package simple-ciphers --version 2.3.0
 ```
 Via `PackageReference` in your `.csproj` file:
 ```cs
-<PackageReference Include="simple-ciphers" Version="2.1.0" />
+<PackageReference Include="simple-ciphers" Version="2.3.0" />
 ```
 # `Encryption`
 Use `A1Z26()` to substitute letters for their corresponding positions.
@@ -35,6 +35,11 @@ Use `Vigenere()` to cipher with a key.
 Encryption.Vigenere("hello world!", "key");
 // returns: rijvs uyvjn!
 ```
+Use `Binary()` to cipher with Binary.
+```cs
+Encryption.Binary("hello world!");
+// returns: 01101000 01100101 01101100 01101100 01101111 00100000 01110111 01101111 01110010 01101100 01100100 00100001
+```
 # `Decryption`
 Use `A1Z26()` to substitute numbers for their corresponding letters.
 ```cs
@@ -58,6 +63,11 @@ Deryption.Morse(".... . .-.. .-.. --- / .-- --- .-. .-.. -.. -.-.--");
 ```
 Use `Vigenere()` to decipher with a key.
 ```cs
-Encryption.Vigenere("rijvs uyvjn!", "key");
+Deryption.Vigenere("rijvs uyvjn!", "key");
+// returns: hello world!
+```
+Use `Binary()` to decipher with Binary.
+```cs
+Deryption.Binary("01101000 01100101 01101100 01101100 01101111 00100000 01110111 01101111 01110010 01101100 01100100 00100001");
 // returns: hello world!
 ```

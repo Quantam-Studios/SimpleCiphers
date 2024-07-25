@@ -222,5 +222,28 @@ namespace SimpleCiphers
 
             return finalText.ToString().Trim();
         }
+
+        /// <summary>
+        /// Converts plain text to binary.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>string in binary.</returns>
+        public static string Binary(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
+            StringBuilder finalText = new();
+
+            foreach (char character in text)
+            {
+                // Convert each character to its binary representation and pad with leading zeros to make it 8 bits.
+                finalText.Append(Convert.ToString(character, 2).PadLeft(8, '0') + " ");
+            }
+
+            return finalText.ToString().Trim();
+        }
     }
 }
