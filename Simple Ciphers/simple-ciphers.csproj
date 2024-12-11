@@ -13,9 +13,9 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Quantam-Studios/SimpleCiphers</RepositoryUrl>
     <PackageTags>ciphers caesar atbash a1z26 morse vigenere binary</PackageTags>
-    <PackageReleaseNotes>Add Binary encryption and decryption.</PackageReleaseNotes>
+    <PackageReleaseNotes>Add error catching for invalid Viginere keys. Add error catching for decryption of invalid Binary messages.</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <VersionPrefix>2.3.0</VersionPrefix>
+    <VersionPrefix>2.4.0</VersionPrefix>
     <PackAsTool>False</PackAsTool>
   </PropertyGroup>
 

@@ -67,9 +67,14 @@ namespace SimpleCiphers
         /// <returns>a string in plain text.</returns>
         public static string Vigenere(string cipherText, string key)
         {
-            if (string.IsNullOrEmpty(cipherText) || string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(cipherText))
             {
                 return string.Empty;
+            }
+
+            if (string.IsNullOrEmpty(key) || !key.All(char.IsLetter))
+            {
+                throw new ArgumentException("Key must contain only alphabetic characters.");
             }
 
             cipherText = cipherText.ToLower();
@@ -82,10 +87,12 @@ namespace SimpleCiphers
             {
                 if (!alpha.Contains(c))
                 {
+                    // Preserve non-alphabetic characters in the ciphertext.
                     finalText.Append(c);
                 }
                 else
                 {
+                    // Compute the shifted position for decryption.
                     int letterShift = alpha.IndexOf(c) - alpha.IndexOf(key[keyShift]);
 
                     if (letterShift < 0)
@@ -95,6 +102,7 @@ namespace SimpleCiphers
 
                     finalText.Append(alpha[letterShift]);
 
+                    // Move to the next character in the key.
                     keyShift = (keyShift + 1) % key.Length;
                 }
             }
@@ -243,11 +251,11 @@ namespace SimpleCiphers
         /// <summary>
         /// Converts binary to plain text.
         /// </summary>
-        /// <param name="cipherText"></param>
-        /// <returns>string in plain text.</returns>
+        /// <param name="cipherText">Binary-encoded string with words separated by spaces.</param>
+        /// <returns>Decoded plain text string.</returns>
         public static string Binary(string cipherText)
         {
-            if (string.IsNullOrEmpty(cipherText))
+            if (string.IsNullOrWhiteSpace(cipherText))
             {
                 return string.Empty;
             }
@@ -257,13 +265,43 @@ namespace SimpleCiphers
 
             foreach (string binary in binaryWords)
             {
-                if (binary.Length == 8)
+                if (binary.Length == 8 && IsBinaryString(binary))
                 {
-                    finalText.Append((char)Convert.ToInt32(binary, 2));
+                    try
+                    {
+                        finalText.Append((char)Convert.ToInt32(binary, 2));
+                    }
+                    catch (FormatException)
+                    {
+                        // Log or handle the exception if needed.
+                        continue;
+                    }
+                }
+                else
+                {
+                    // Optionally log or handle invalid binary words.
+                    continue;
                 }
             }
 
             return finalText.ToString();
+        }
+
+        /// <summary>
+        /// Checks if a string contains only binary digits (0 or 1).
+        /// </summary>
+        /// <param name="input">Input string.</param>
+        /// <returns>True if the string is binary; otherwise, false.</returns>
+        private static bool IsBinaryString(string input)
+        {
+            foreach (char c in input)
+            {
+                if (c != '0' && c != '1')
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

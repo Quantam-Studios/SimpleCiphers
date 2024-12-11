@@ -112,6 +112,11 @@ namespace SimpleCiphers
                 return string.Empty;
             }
 
+            if (string.IsNullOrEmpty(key) || !key.Any(char.IsLetter))
+            {
+                throw new ArgumentException("Key must be a non-empty string containing only alphabetic characters.");
+            }
+
             text = text.ToLower();
             key = key.ToLower();
 
@@ -122,17 +127,26 @@ namespace SimpleCiphers
             {
                 if (!alpha.Contains(c))
                 {
+                    // Preserve non-alphabetic characters as is.
                     finalText.Append(c);
                 }
                 else
                 {
-                    int letterShift = alpha.IndexOf(key[keyShift]) + alpha.IndexOf(c);
+                    // Ensure key characters are valid within the alphabet.
+                    char keyChar = key[keyShift];
+                    if (!alpha.Contains(keyChar))
+                    {
+                        throw new ArgumentException("Key contains invalid characters.");
+                    }
 
+                    // Compute the shifted position.
+                    int letterShift = alpha.IndexOf(keyChar) + alpha.IndexOf(c);
                     if (letterShift >= 26)
                     {
                         letterShift -= 26;
                     }
 
+                    // Append the encrypted character and update key shift.
                     finalText.Append(alpha[letterShift]);
                     keyShift = (keyShift + 1) % key.Length;
                 }
